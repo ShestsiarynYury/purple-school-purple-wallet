@@ -6,17 +6,22 @@
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": "explicit"
 	},
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"eslint.alwaysShowStatus": true,
 	"eslint.codeAction.showDocumentation": {
 		"enable": true
 	},
 	"files.autoSave": "onFocusChange",
 	"vs-code-prettier-eslint.prettierLast": false,
-	"editor.defaultFormatter": "esbenp.prettier-vscode",
+
 	"[typescript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"[html]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	}
+	},
+	"explorer.compactFolders": false,
+	"workbench.tree.indent": 20,
+	"terminal.integrated.scrollback": 10000,
+	"terminal.integrated.defaultProfile.windows": "Command Prompt"
 }
