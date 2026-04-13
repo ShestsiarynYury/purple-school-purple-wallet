@@ -1,13 +1,13 @@
 {
-  "tabWith": 4,
-  "useTabs": true,
-  "printWidth": 100,
-  "overrides": [
-    {
-      "files": "*.html",
-      "options": {
-        "parser": "angular"
-      }
-    }
-  ]
+	"tabWith": 4,
+	"useTabs": true,
+	"printWidth": 100,
+	"overrides": [
+		{
+			"files": "*.html",
+			"options": {
+				"parser": "angular"
+			}
+		}
+	]
 }
