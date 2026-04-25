@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component, effect, signal } from '@angular/core';
-import { ButtonComponent } from '../../shared/components/button/button';
-import { InputComponent } from '../../shared/components/input/input';
-import { PasswordInputComponent } from '../../shared/components/password-input/password-input';
+import { Images } from '../../shared/images';
 
 @Component({
 	selector: 'app-layout',
@@ -9,9 +7,10 @@ import { PasswordInputComponent } from '../../shared/components/password-input/p
 	styleUrl: './layout.scss',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [ButtonComponent, InputComponent, PasswordInputComponent, PasswordInputComponent],
+	imports: [],
 })
 export class LayoutComponent {
+	Images = Images;
 	title = signal<string>('purple-wallet');
 	email = signal<string>('');
 

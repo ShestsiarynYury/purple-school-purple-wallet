@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, model, signal } from '@angular/core';
-import { Icons } from '../icon';
+import { Icons } from '../../icons';
 
 @Component({
 	selector: 'app-password-input',
