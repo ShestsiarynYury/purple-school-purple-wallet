@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, Component, input, InputSignal, output } from '
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent {
-	title: InputSignal<string> = input.required();
+	title = input<string>();
 	disabled: InputSignal<boolean> = input.required();
 
 	buttonClick = output();

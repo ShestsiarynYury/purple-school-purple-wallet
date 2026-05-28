@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { LayoutComponent } from './public/layout/layout';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
 	selector: 'app-root',
@@ -7,6 +7,6 @@ import { LayoutComponent } from './public/layout/layout';
 	styleUrl: './app.scss',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [LayoutComponent],
+	imports: [RouterOutlet],
 })
 export class App {}

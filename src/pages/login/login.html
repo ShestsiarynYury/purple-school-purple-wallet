@@ -1,0 +1,27 @@
+<div class="login">
+	<div class="login__image">
+		<div class="login__logo">
+			<img
+				class="login__logo--image"
+				width="445"
+				height="107"
+				alt="Cryptik Logo"
+				[src]="Images.Logo"
+			/>
+		</div>
+	</div>
+	<div class="login__page">
+		<div class="login__container">
+			<h1 class="login__heading">Вход</h1>
+			<div class="login__form">
+				<app-input class="login__form--control" [iconUrl]="Icons.Email" />
+
+				<app-password-input class="login__form--control"></app-password-input>
+
+				<app-button [disabled]="false">
+					<span>Войти</span>
+				</app-button>
+			</div>
+		</div>
+	</div>
+</div>

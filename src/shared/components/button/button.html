@@ -1,0 +1,9 @@
+@let title = this.title();
+
+<button type="button" class="form__button" [disabled]="disabled()" (click)="onButtonClick()">
+	@if (title) {
+		<span>{{ title }}</span>
+	} @else {
+		<ng-content></ng-content>
+	}
+</button>
