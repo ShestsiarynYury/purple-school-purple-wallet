@@ -1,0 +1,40 @@
+:host {
+	display: flex;
+	height: 100%;
+	flex: 1 1 auto;
+	background-color: #31353f;
+}
+
+.block__start {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding: 1rem;
+	width: 236px;
+	min-width: 236px;
+	background-color: #1b2028;
+}
+
+.start__logo {
+	display: flex;
+	justify-content: center;
+	margin: 0.5rem 0 2rem;
+}
+
+.start__menu {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	flex: 1 auto;
+}
+
+.start__exit-link {
+	margin-bottom: 1.5rem;
+}
+
+.block__end {
+	padding: 1rem;
+	width: 100%;
+}
