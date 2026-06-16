@@ -1,0 +1,29 @@
+@if (data()) {
+	<div class="asset__card">
+		<div class="asset__icon">
+			<img [ngSrc]="data().logoUrl" [alt]="data()?.assetId" />
+		</div>
+		<div class="asset__name">
+			<span class="asset__name--full">{{ data().name }}</span>
+			<span class="asset__name--short">{{ data()?.assetId }}</span>
+		</div>
+		<div class="asset__value">{{ data().value }} {{ data()?.assetId }}</div>
+		<div class="fiat__value">{{ data()?.valueInFiat }} $</div>
+		<div
+			[ngClass]="{
+				'asset__rate--success': data().rateChange > 0,
+				'asset__rate--danger': data().rateChange <= 0,
+			}"
+			class="asset__rate"
+		>
+			{{ data()?.rateChange !== 0 ? `${data().rateChange}` : `0` }}
+		</div>
+		<div class="asset__rate-change">
+			@if (data().rateChange > 0) {
+				<img ngSrc="/icons/arrow-up.svg" width="15px" height="15px" alt="up arrow" />
+			} @else {
+				<img ngSrc="/icons/arrow-down.svg" width="15px" height="15px" alt="down arrow" />
+			}
+		</div>
+	</div>
+}

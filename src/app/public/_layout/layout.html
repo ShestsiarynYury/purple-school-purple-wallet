@@ -1,0 +1,34 @@
+<div class="block__start">
+	<div class="start__logo">
+		<img ngSrc="assets/images/logo.svg" width="170" height="41" alt="logo" />
+	</div>
+	<div class="start__menu">
+		@for (link of navLinks; track link.id) {
+			<app-nav-button
+				class="start__dashboard-button"
+				[text]="link.text"
+				[iconUrl]="link.iconUrl"
+				[iconUrlActive]="link.iconUrlActive"
+				[routerLink]="link.url"
+				routerLinkActive="active"
+			>
+			</app-nav-button>
+		}
+	</div>
+	<div class="start__exit-link">
+		<app-nav-button
+			class="start__logout-button"
+			text="Выход"
+			iconUrl="/logout.svg"
+			iconUrlActive="link.iconUrlActive"
+			(clickEvent)="onLogoutClick()"
+		>
+		</app-nav-button>
+	</div>
+</div>
+<div class="block__end">
+	<div class="end__nav">
+		Хидер
+		<router-outlet></router-outlet>
+	</div>
+</div>
