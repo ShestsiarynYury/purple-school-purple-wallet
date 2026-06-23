@@ -1,9 +1,9 @@
 import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { INavConst } from '../../shared/components/nav-button/models';
 import { NAV_CONST } from './constants';
-import { NavButtonComponent } from '../../shared/components/nav-button/nav-button';
+import { INavConst } from '../../../shared/components/nav-button/models';
+import { NavButtonComponent } from '../../../shared/components/nav-button/nav-button';
 
 @Component({
 	selector: 'app-layout',

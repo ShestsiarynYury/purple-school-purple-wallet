@@ -1,4 +1,4 @@
-import { INavConst } from '../../shared/components/nav-button/models';
+import { INavConst } from '../../../shared/components/nav-button/models';
 
 export const NAV_CONST: INavConst[] = [
 	{

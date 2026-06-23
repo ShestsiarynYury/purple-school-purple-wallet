@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, effect, signal } from '@angular/core';
-import { Icons } from '../../shared/icons';
-import { Images } from '../../shared/images';
-import { ButtonComponent } from '../../shared/components/button/button';
-import { InputComponent } from '../../shared/components/input/input';
-import { PasswordInputComponent } from '../../shared/components/password-input/password-input';
+import { ButtonComponent } from '../../../../shared/components/button/button';
+import { InputComponent } from '../../../../shared/components/input/input';
+import { PasswordInputComponent } from '../../../../shared/components/password-input/password-input';
+import { Icons } from '../../../../shared/icons';
+import { Images } from '../../../../shared/images';
 
 @Component({
 	selector: 'app-login',

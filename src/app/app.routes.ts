@@ -1,8 +1,11 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from '../pages/login/login';
+import { AssetsComponent } from './private/pages/assets/assets.component';
+import { LoginComponent } from './public/pages/log-in/login';
 import { authGuard } from '../shared/guards/auth.guard';
-import { LayoutComponent } from '../pages/layout/layout';
-import { DashboardComponent } from '../pages/dashboard/dashboard';
+import { LayoutComponent } from './private/_layout/layout';
+import { DashboardComponent } from './private/pages/dashboard/dashboard';
+import { RatesComponent } from './private/pages/rates/rates.component';
+import { ExchangeComponent } from './private/pages/exchange/exchange.component';
 
 export const routes: Routes = [
 	{

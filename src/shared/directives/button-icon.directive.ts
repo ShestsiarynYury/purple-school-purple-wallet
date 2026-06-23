@@ -33,6 +33,8 @@ export class ButtonIconDirective implements OnInit {
 			const isActiveValue = this.isActive();
 			const urlValue = this.url();
 			const activeUrl = this.activeUrl();
+
+			this._createOrUpdateView();
 		});
 	}
 
@@ -44,24 +46,24 @@ export class ButtonIconDirective implements OnInit {
 		const current = this.pickCurrentUrl();
 		const ctx: AppButtonIconContext = {
 			$implicit: current,
-			active: !!this.isActive,
+			active: !!this.isActive(),
 		};
 
 		if (!this.viewRef) {
 			this._vcr.clear();
-			this._viewRef = this.vcr.createEmbeddedView(this.tpl, ctx);
+			this._viewRef = this._vcr.createEmbeddedView(this._tmp, ctx);
 		} else {
 			this._viewRef.context.$implicit = current;
-			this._viewRef.context.active = !!this.isActive;
+			this._viewRef.context.active = !!this.isActive();
 			this._viewRef.markForCheck?.();
 		}
 	}
 
 	private pickCurrentUrl(): string {
-		const active = !!this.isActive;
-		if (active && this.activeUrl) return this.activeUrl;
-		if (!active && this.url) return this.url;
+		const active = !!this.isActive();
+		if (active && this.activeUrl()) return this.activeUrl();
+		if (!active && this.url()) return this.url();
 		// Фолбэк, если что-то не передано:
-		return (this.activeUrl ?? this.url ?? '') as string;
+		return (this.activeUrl() ?? this.url() ?? '') as string;
 	}
 }
