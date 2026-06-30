@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { IRateModel } from '../../models/rates.model';
-import { NgClass, NgOptimizedImage, PercentPipe } from '@angular/common';
+import { NgClass, NgOptimizedImage, PercentPipe, UpperCasePipe } from '@angular/common';
 
 @Component({
 	selector: 'app-rate',
@@ -8,7 +8,7 @@ import { NgClass, NgOptimizedImage, PercentPipe } from '@angular/common';
 	styleUrl: './rate.component.scss',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [NgOptimizedImage, NgClass, PercentPipe],
+	imports: [NgOptimizedImage, NgClass, PercentPipe, UpperCasePipe],
 })
 export class RateComponent {
 	data = input<IRateModel | null>();

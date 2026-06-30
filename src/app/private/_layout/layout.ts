@@ -4,6 +4,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { NAV_CONST } from './constants';
 import { INavConst } from '../../../shared/components/nav-button/models';
 import { NavButtonComponent } from '../../../shared/components/nav-button/nav-button';
+import { HeaderComponent } from './components/header.component';
 
 @Component({
 	selector: 'app-layout',
@@ -11,9 +12,9 @@ import { NavButtonComponent } from '../../../shared/components/nav-button/nav-bu
 	templateUrl: './layout.html',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [RouterOutlet, NgOptimizedImage, NavButtonComponent, RouterLink],
+	imports: [RouterOutlet, NgOptimizedImage, NavButtonComponent, RouterLink, HeaderComponent],
 })
-export class LayoutComponent {
+export class PrivateLayoutComponent {
 	navLinks: INavConst[] = NAV_CONST;
 
 	onLogoutClick(): void {

@@ -1,4 +1,4 @@
-@for (rate of rates; track rate.assetId) {
+@for (rate of filteredRates(); track rate.assetId) {
 	<app-rate [data]="rate" />
 } @empty {
 	<p>Not Data</p>

@@ -1,9 +1,8 @@
 import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { INavConst } from '../../shared/components/nav-button/models';
 import { NAV_CONST } from './constants';
-import { NavButtonComponent } from '../../shared/components/nav-button/nav-button';
+import { INavConst } from '../../../shared/components/nav-button/models';
 
 @Component({
 	selector: 'app-layout',
@@ -11,9 +10,9 @@ import { NavButtonComponent } from '../../shared/components/nav-button/nav-butto
 	templateUrl: './layout.html',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [RouterOutlet, NgOptimizedImage, NavButtonComponent, RouterLink],
+	imports: [RouterOutlet, NgOptimizedImage, RouterLink],
 })
-export class LayoutComponent {
+export class PublicLayoutComponent {
 	navLinks: INavConst[] = NAV_CONST;
 
 	onLogoutClick(): void {
