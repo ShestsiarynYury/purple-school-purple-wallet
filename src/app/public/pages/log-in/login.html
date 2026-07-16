@@ -14,9 +14,20 @@
 		<div class="login__container">
 			<h1 class="login__heading">Вход</h1>
 			<div class="login__form">
-				<app-input class="login__form--control" [iconUrl]="Icons.Email" />
+				<app-input
+					class="login__form--control"
+					[iconUrl]="Icons.Email"
+					(controlValue)="onInputChange('username', $event?.target?.value)"
+				/>
 
-				<app-password-input class="login__form--control"></app-password-input>
+				<app-password-input
+					class="login__form--control"
+					(controlValue)="onInputChange('password', $event)"
+				></app-password-input>
+
+				@if (error) {
+					<div class="login__form--errors">{{ error }}</div>
+				}
 
 				<app-button [disabled]="false">
 					<span>Войти</span>

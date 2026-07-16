@@ -1,18 +1,10 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	computed,
-	effect,
-	inject,
-	OnInit,
-	signal,
-} from '@angular/core';
-import { FAKE_RATES } from '../../../../shared/constants/fake-rates.const';
-import { IRateModel } from './models/rates.model';
+import { ChangeDetectionStrategy, Component, inject, OnInit, Signal } from '@angular/core';
 import { RateComponent } from './components/rate/rate.component';
-import { ActivatedRoute } from '@angular/router';
+import { RatesService } from './services/rates.service';
+import { IRateModel } from './models/rates.model';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs';
+import { StoreService } from '../../../../shared/services/store.service';
+import { FAKE_RATES } from '../../../../shared/constants/fake-rates.const';
 
 @Component({
 	selector: 'app-rates',
@@ -20,42 +12,42 @@ import { map } from 'rxjs';
 	styleUrl: './rates.component.scss',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [RatesService],
 	imports: [RateComponent],
 })
 export class RatesComponent implements OnInit {
-	private _activatedRoute = inject(ActivatedRoute);
-	rates = signal<IRateModel[]>([]);
-	searchQuery = toSignal(
-		this._activatedRoute.queryParamMap.pipe(
-			map((params) => (params.get('value') ?? '').trim().toLowerCase()),
-		),
-		{ initialValue: '' },
-	);
-	// сработает когда обновяться rates или searchQuery
-	filteredRates = computed(() => {
-		const query = this.searchQuery();
-		const list = this.rates();
+	private _ratesService: RatesService = inject(RatesService);
+	private _storeService = inject(StoreService);
 
-		if (!query) {
-			return list;
-		}
-
-		return list.filter(
-			(rate) =>
-				rate.assetId.toLocaleLowerCase().includes(query.toLocaleLowerCase()) ||
-				rate.assetName.toLocaleLowerCase().includes(query.toLocaleLowerCase()),
-		);
+	rates: Signal<IRateModel[] | undefined> = toSignal(this._storeService.getValueAsync('rates'), {
+		initialValue: [],
 	});
 
-	constructor() {
-		effect(() => {
-			console.log('Rates updated:', this.rates());
-		});
-	}
+	// private _activatedRoute = inject(ActivatedRoute);
+	// rates = signal<IRateModel[]>([]);
+	// searchQuery = toSignal(
+	// 	this._activatedRoute.queryParamMap.pipe(
+	// 		map((params) => (params.get('value') ?? '').trim().toLowerCase()),
+	// 	),
+	// 	{ initialValue: '' },
+	// );
+	// // сработает когда обновяться rates или searchQuery
+	// filteredRates = computed(() => {
+	// 	const query = this.searchQuery();
+	// 	const list = this.rates();
+
+	// 	if (!query) {
+	// 		return list;
+	// 	}
+
+	// 	return list.filter(
+	// 		(rate) =>
+	// 			rate.assetId.toLocaleLowerCase().includes(query.toLocaleLowerCase()) ||
+	// 			rate.assetName.toLocaleLowerCase().includes(query.toLocaleLowerCase()),
+	// 	);
+	// });
 
 	ngOnInit(): void {
-		setTimeout(() => {
-			this.rates.set(FAKE_RATES);
-		}, 1000);
+		this._storeService.setValue('rates', FAKE_RATES);
 	}
 }
