@@ -13,16 +13,12 @@
 	<div class="login__page">
 		<div class="login__container">
 			<h1 class="login__heading">Вход</h1>
-			<div class="login__form">
-				<app-input
-					class="login__form--control"
-					[iconUrl]="Icons.Email"
-					(controlValue)="onInputChange('username', $event?.target?.value)"
-				/>
+			<form class="login__form" [formGroup]="form">
+				<app-input class="login__form--control" [iconUrl]="Icons.Email" formControlName="email" />
 
 				<app-password-input
 					class="login__form--control"
-					(controlValue)="onInputChange('password', $event)"
+					formControlName="password"
 				></app-password-input>
 
 				@if (error) {
@@ -32,7 +28,17 @@
 				<app-button [disabled]="false">
 					<span>Войти</span>
 				</app-button>
-			</div>
+
+				@if (form.controls.email?.invalid && form.controls.email?.touched) {
+					<div class="login__form--errors">пожалуйста введите email</div>
+				}
+				@if (form.controls.password.errors?.["required"] && form.controls.password?.touched) {
+					<div class="login__form--errors">Пароль не введен</div>
+				}
+				@if (form.controls.password.errors?.["noSpaces"] && form.controls.password?.touched) {
+					<div class="login__form--errors">Пароль не должен содержать пробелов</div>
+				}
+			</form>
 		</div>
 	</div>
 </div>

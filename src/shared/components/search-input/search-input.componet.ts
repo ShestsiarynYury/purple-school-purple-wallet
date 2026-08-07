@@ -1,5 +1,5 @@
-import { Component, input, output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, forwardRef, input } from '@angular/core';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
 	selector: 'app-search-input',
@@ -7,18 +7,47 @@ import { FormsModule } from '@angular/forms';
 	styleUrl: './search-input.component.scss',
 	standalone: true,
 	imports: [FormsModule],
+	providers: [
+		{
+			provide: NG_VALUE_ACCESSOR,
+			useExisting: forwardRef(() => SearchInputComponent),
+			multi: true,
+		},
+	],
 })
-export class SearchInputComponent {
+export class SearchInputComponent implements ControlValueAccessor {
+	private _innerValue = '';
+	// eslint-disable-next-line @typescript-eslint/no-empty-function
+	private _onChange: (value: string) => void = (value: string) => {};
+	// eslint-disable-next-line @typescript-eslint/no-empty-function
+	private _onTouched: () => void = () => {};
+
 	type = input<'text' | 'email'>('text');
 	placeholder = input<string>('');
-	disabled = input<boolean>(false);
 	iconUrl = input<string | null>('/icons/search.svg');
+	disabled = false;
 
-	value = input<string>('');
-	inputEvent = output<string>();
+	writeValue(value: string): void {
+		this._innerValue = value;
+	}
 
-	onInput(input: string) {
-		console.log(input);
-		this.inputEvent.emit(input);
+	registerOnChange(fn: (value: string) => void): void {
+		this._onChange = fn;
+	}
+
+	registerOnTouched(fn: () => void): void {
+		this._onTouched = fn;
+	}
+
+	setDisabledState?(isDisabled: boolean): void {
+		this.disabled = isDisabled;
+	}
+
+	handleInput(event: Event) {
+		const target = event.target as HTMLInputElement;
+		const value = target.value;
+		this._innerValue = value;
+		this._onChange(value);
+		this._onTouched();
 	}
 }

@@ -6,11 +6,17 @@ import { IAssetModel } from '../../app/private/pages/assets/models/assets.model'
 export interface IAppStore {
 	rates: IRateModel[];
 	assets: IAssetModel[];
+	form: {
+		search: string;
+	};
 }
 
 export const STORE_INITIAL_VALUES: IAppStore = {
 	rates: [],
 	assets: [],
+	form: {
+		search: '',
+	},
 };
 
 @Injectable({ providedIn: 'root' })
@@ -34,11 +40,32 @@ export class StoreService {
 		);
 	}
 
+	getFormValueAsync<K extends keyof IAppStore['form']>(key: K): Observable<IAppStore['form'][K]> {
+		return this._storeSubject.asObservable().pipe(
+			map((state) => {
+				return state.form[key];
+			}),
+		);
+	}
+
 	// setter
 	setValue<K extends keyof IAppStore>(key: K, value: IAppStore[K]): void {
 		this._storeSubject.next({
 			...this._storeSubject.getValue(),
 			[key]: value,
+		});
+	}
+
+	public setFormValue<K extends keyof IAppStore['form']>(
+		key: K,
+		value: IAppStore['form'][K],
+	): void {
+		this._storeSubject.next({
+			...this._storeSubject.getValue(),
+			form: {
+				...this._storeSubject.getValue().form,
+				[key]: value,
+			},
 		});
 	}
 }
