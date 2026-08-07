@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, OnInit, signal } from '@angular/core';
 import { ButtonComponent } from '../../../../shared/components/button/button';
 import { InputComponent } from '../../../../shared/components/input/input';
 import { PasswordInputComponent } from '../../../../shared/components/password-input/password-input';
@@ -7,6 +7,14 @@ import { Images } from '../../../../shared/images';
 import { AuthService } from '../../../../shared/services/auth.service';
 import { catchError, of, take, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import {
+	FormControl,
+	FormGroup,
+	FormsModule,
+	ReactiveFormsModule,
+	Validators,
+} from '@angular/forms';
+import { noSpaceValidator } from '../../../../shared/validators/no-space.validator';
 
 @Component({
 	selector: 'app-login',
@@ -14,14 +22,16 @@ import { Router } from '@angular/router';
 	styleUrl: './login.scss',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [ButtonComponent, InputComponent, PasswordInputComponent],
+	imports: [
+		ButtonComponent,
+		InputComponent,
+		PasswordInputComponent,
+		FormsModule,
+		ReactiveFormsModule,
+	],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 	private _authService = inject(AuthService);
-	private _formValue: { username: string | null; password: string | null } = {
-		username: null,
-		password: null,
-	};
 	private _router: Router = inject(Router);
 
 	error = '';
@@ -37,17 +47,17 @@ export class LoginComponent {
 		});
 	}
 
-	onInputChange(control: 'username' | 'password', value: string) {
-		this._formValue[control] = value;
+	ngOnInit(): void {
+		this.form.valueChanges.subscribe();
 	}
 
 	onLoginClick(): void {
-		if (this._formValue.username == null || this._formValue.password == null) {
+		if (this.form.controls.email == null || this.form.controls.password == null) {
 			return;
 		}
 
 		this._authService
-			.login$(this._formValue.username, this._formValue.password)
+			.login$(this.form.controls.email.value, this.form.controls.password.value)
 			.pipe(
 				take(1),
 				tap(() => this._router.navigate(['private'])),
@@ -59,4 +69,15 @@ export class LoginComponent {
 			)
 			.subscribe();
 	}
+
+	form = new FormGroup({
+		email: new FormControl('', {
+			nonNullable: true,
+			validators: [Validators.required, Validators.email],
+		}),
+		password: new FormControl('', {
+			nonNullable: true,
+			validators: [Validators.required, noSpaceValidator()],
+		}),
+	});
 }

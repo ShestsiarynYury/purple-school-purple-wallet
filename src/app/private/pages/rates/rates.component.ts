@@ -1,10 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Signal } from '@angular/core';
 import { RateComponent } from './components/rate/rate.component';
 import { RatesService } from './services/rates.service';
 import { IRateModel } from './models/rates.model';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { StoreService } from '../../../../shared/services/store.service';
-import { FAKE_RATES } from '../../../../shared/constants/fake-rates.const';
 
 @Component({
 	selector: 'app-rates',
@@ -15,13 +13,10 @@ import { FAKE_RATES } from '../../../../shared/constants/fake-rates.const';
 	providers: [RatesService],
 	imports: [RateComponent],
 })
-export class RatesComponent implements OnInit {
+export class RatesComponent {
 	private _ratesService: RatesService = inject(RatesService);
-	private _storeService = inject(StoreService);
 
-	rates: Signal<IRateModel[] | undefined> = toSignal(this._storeService.getValueAsync('rates'), {
-		initialValue: [],
-	});
+	rates: Signal<IRateModel[] | undefined> = toSignal(this._ratesService.filteredRates$);
 
 	// private _activatedRoute = inject(ActivatedRoute);
 	// rates = signal<IRateModel[]>([]);
@@ -46,8 +41,4 @@ export class RatesComponent implements OnInit {
 	// 			rate.assetName.toLocaleLowerCase().includes(query.toLocaleLowerCase()),
 	// 	);
 	// });
-
-	ngOnInit(): void {
-		this._storeService.setValue('rates', FAKE_RATES);
-	}
 }
